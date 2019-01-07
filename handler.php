@@ -1,5 +1,8 @@
 <?php
 function hello($eventData) : array
 {
-    return ["msg" => "hello from PHP " . PHP_VERSION];
+	return [
+		"body" => "hello from PHP " . PHP_VERSION,
+		"statusCode" => 200,
+	];
 }
