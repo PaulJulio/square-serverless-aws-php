@@ -3,3 +3,10 @@
 
 # PHP binary
 layer/php/php
+
+# JetBrains IDE
+.idea
+
+# Composer
+vendor
+composer.phar
