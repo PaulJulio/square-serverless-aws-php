@@ -11,6 +11,7 @@ The basics of using [Serverless Framework][1] for AWS Lambda PHP applications.
 2. Write your serverless application (!) - the default is in `handler.php`
 2. Run `sls deploy` to deploy to Lambda
 2. Run `sls invoke -f hello -l` to invoke your function
+2. In this example, static web assets are stored with the project and served by lambdas. See the ['static/README.md'][5] for more info.
 
 ## PHP handler function signature
 
@@ -31,3 +32,4 @@ Hello world looks like:
 [2]: https://serverless.com/framework/docs/providers/aws/guide/quick-start/
 [3]: https://serverless.com/framework/docs/providers/aws/guide/credentials/
 [4]: doc/create_php_binary.md
+[5]: static/README.md

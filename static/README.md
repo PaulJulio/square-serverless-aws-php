@@ -1,0 +1,1 @@
+todo: would probably be better to compile these than force people to create single-page resources by hand

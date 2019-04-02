@@ -14,7 +14,7 @@ class Locations {
 	public function fetch() : void
 	{
 		$sqSecret = new SquareSecrets();
-		\SquareConnect\Configuration::getDefaultConfiguration()->setAccessToken($sqSecret->getClientSecret());
+		$sqSecret->setAccessToken();
 		$locations_api = new \SquareConnect\Api\LocationsApi();
 		$response = $locations_api->listLocations();
 		$this->error = $response->getErrors();
@@ -68,4 +68,13 @@ class Locations {
 		}
 		return $this->error;
 	}
+
+    /**
+     * @return mixed
+     */
+    public function getLocations() : array
+    {
+        return $this->locations;
+    }
+
 }

@@ -61,10 +61,6 @@ provider:
 #    - exclude-me.js
 #    - exclude-me-dir/**
 
-package:
-    exclude:
-        - static/**
-
 functions:
   listlocations:
     handler: handler.listLocations
@@ -75,6 +71,22 @@ functions:
       - http:
           path: listLocations
           method: get
+  checkout:
+    handler: handler.staticCheckout
+    layers:
+      - {Ref: PhpLambdaLayer}
+    events:
+      - http:
+          path: checkout
+          method: get
+  processcheckout:
+    handler: handler.processCheckout
+    layers:
+      - {Ref: PhpLambdaLayer}
+    events:
+      - http:
+          path: processcheckout
+          method: post
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

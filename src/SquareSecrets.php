@@ -39,4 +39,17 @@ class SquareSecrets {
 	{
 		return $this->clientSecret;
 	}
+
+    /**
+     * @param string $configuration
+     * @throws \Exception
+     */
+	public function setAccessToken($configuration = 'default') : void
+    {
+        if ($configuration != 'default') {
+            // todo: handle more than the default configuration
+            throw new \Exception('unsupported configuration');
+        }
+        \SquareConnect\Configuration::getDefaultConfiguration()->setAccessToken($this->clientSecret);
+    }
 }
