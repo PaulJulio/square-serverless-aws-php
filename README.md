@@ -1,6 +1,6 @@
-# AWS Lambda PHP Hello World
+# Square Serverless with AWS Lambda and PHP
 
-The basics of using [Serverless Framework][1] for AWS Lambda PHP applications.
+The basics of using [Serverless Framework][1] for AWS Lambda PHP applications for Square.
 
 ## Notes
 
@@ -8,6 +8,7 @@ The basics of using [Serverless Framework][1] for AWS Lambda PHP applications.
 2. Set up your [AWS credentials][3]
 2. Create php binary by following steps in [`doc/create_php_binary.md`][4]
 2. Create your Square Application, store your keys in AWS Secrets Manager (client-id, client-secret json format) TODO: spell this process out
+2. Update your dependencies with [composer][6]
 2. Write your serverless application (!) - the default is in `handler.php`
 2. Run `sls deploy` to deploy to Lambda
 2. Run `sls invoke -f hello -l` to invoke your function
@@ -33,3 +34,4 @@ Hello world looks like:
 [3]: https://serverless.com/framework/docs/providers/aws/guide/credentials/
 [4]: doc/create_php_binary.md
 [5]: static/README.md
+[6]: https://getcomposer.org
