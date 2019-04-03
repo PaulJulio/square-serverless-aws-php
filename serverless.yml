@@ -71,6 +71,14 @@ functions:
       - http:
           path: listLocations
           method: get
+  staticjs:
+    handler: handler.staticJs
+    layers:
+      - {Ref: PhpLambdaLayer}
+    events:
+      - http:
+          path: js/{asset+}
+          method: get
   checkout:
     handler: handler.staticCheckout
     layers:
@@ -78,6 +86,14 @@ functions:
     events:
       - http:
           path: checkout
+          method: get
+  kiosk:
+    handler: handler.staticKiosk
+    layers:
+      - {Ref: PhpLambdaLayer}
+    events:
+      - http:
+          path: kiosk
           method: get
   processcheckout:
     handler: handler.processCheckout
@@ -87,6 +103,14 @@ functions:
       - http:
           path: processcheckout
           method: post
+  inventory:
+    handler: handler.inventory
+    layers:
+      - {Ref: PhpLambdaLayer}
+    events:
+      - http:
+          path: inventory
+          method: get
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

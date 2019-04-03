@@ -25,6 +25,29 @@ function staticCheckout($eventData) : array
         ],
     ];
 }
+function staticKiosk($eventData) : array
+{
+    return [
+        "body" => file_get_contents(__DIR__ . "/static/kiosk.html"),
+        "statusCode" => 200,
+        "headers" => [
+            "Content-type" => "text/html",
+        ],
+    ];
+}
+function staticJs($eventData) : array
+{
+    // todo: check that asset exists
+    $data = json_decode($eventData, true);
+    $asset = end(explode('/', $data['path']));
+    return [
+        "body" => file_get_contents(__DIR__ . "/static/js/" . $asset),
+        "statusCode" => 200,
+        "headers" => [
+            "Content-type" => "application/javascript",
+        ]
+    ];
+}
 function processCheckout($eventData) : array
 {
     $eventArray = json_decode($eventData, true);
@@ -49,5 +72,17 @@ function processCheckout($eventData) : array
         "headers" => [
             "Content-type" => "application/json",
         ],
+    ];
+}
+function inventory($eventData) : array
+{
+    $inventory = new \SquareServerless\Inventory();
+    $body = $inventory->fetchKiosk();
+    return [
+        "body" => json_encode($body),
+        "statusCode" => 200,
+        "headers" => [
+            "Content-type" => "application/json",
+        ]
     ];
 }
