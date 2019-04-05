@@ -118,18 +118,17 @@ function order($eventData) : array
     $order = $response->getOrder();
     $charge = new \SquareServerless\Charge();
     $chargeResponse = $charge->chargeOrder($order, $data['nonce']);
-    //$transaction = $chargeResponse->getTransaction();
+    $transaction = $chargeResponse->getTransaction();
     // todo: sort out the actual status from the chargeresponse
     $status = 'SUCCESS';
     return [
-        "body" => [
-            //'id' => $transaction->getId(),
-            'id' => 'some-fake-testing-id',
+        "body" => json_encode([
+            'id' => $transaction->getId(),
             'status' => $status,
-        ],
+        ]),
         "statusCode" => 200,
         "headers" => [
-            "Content-type" => "application/javascript",
+            "Content-type" => "application/json",
         ],
     ];
 }
