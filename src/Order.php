@@ -1,6 +1,10 @@
 <?php
 namespace SquareServerless;
 
+use SquareConnect\Model\OrderFulfillment;
+use SquareConnect\Model\OrderFulfillmentPickupDetails;
+use SquareConnect\Model\OrderFulfillmentRecipient;
+
 class Order {
 
     private $orderRequest;
@@ -51,6 +55,24 @@ class Order {
             }
         }
         $this->order->setLineItems($lineItems);
+
+        // add fulfillment info in order to get this order into the seller dashboard
+        $now = time();
+        $fullfillment = new OrderFulfillment();
+        $fullfillment->setType('PICKUP');
+        $fullfillment->setState('PROPOSED');
+        $recipient = new OrderFulfillmentRecipient();
+        $recipient->setDisplayName('Kiosk Customer');
+        $pickup = new OrderFulfillmentPickupDetails();
+        $pickup->setRecipient($recipient);
+        $pickup->setExpiresAt(date('Y-m-d\TH:i:s\Z', $now + 3600));
+        $pickup->setAutoCompleteDuration('P0DT1H0S');
+        $pickup->setScheduleType('SCHEDULED');
+        $pickup->setPickupAt(date('Y-m-d\TH:i:s\Z', $now + 600));
+        $pickup->setPickupWindowDuration('PT1H0S');
+        $pickup->setPrepTimeDuration('PT10M');
+        $fullfillment->setPickupDetails($pickup);
+        $this->order->setFulfillments([$fullfillment]);
 
         // done creating the order, set up the request
         $this->orderRequest->setOrder($this->order);
