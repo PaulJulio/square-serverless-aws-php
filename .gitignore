@@ -2,10 +2,11 @@
 .serverless
 
 # PHP binary
-layer/php/php
+#layer/php/php
 
 # JetBrains IDE
 .idea
 
 # Composer
 vendor
+#composer.phar
