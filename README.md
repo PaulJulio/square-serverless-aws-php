@@ -6,8 +6,8 @@ The basics of using [Serverless Framework][1] for AWS Lambda PHP applications fo
 
 1. Install Serverless Framework by following the [Quick Start][2]
 2. Set up your [AWS credentials][3]
-2. Create php binary by following steps in [`doc/create_php_binary.md`][4]
-2. Create your Square Application, store your keys in AWS Secrets Manager (client-id, client-secret json format) TODO: spell this process out
+2. Create php binary by following steps in [`doc/create_php_binary.md`][4] *for hack week, this is included*
+2. Create your Square Application, store your keys in AWS Secrets Manager  by following the steps in [`doc/secrets.md`][7]
 2. Update your dependencies with [composer][6]
 2. Write your serverless application (!) - the default is in `handler.php`
 2. Run `sls deploy` to deploy to Lambda
@@ -40,3 +40,4 @@ Hello world looks like:
 [4]: doc/create_php_binary.md
 [5]: static/README.md
 [6]: https://getcomposer.org
+[7]: doc/secrets.md
