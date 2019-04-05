@@ -12,12 +12,13 @@ The basics of using [Serverless Framework][1] for AWS Lambda PHP applications fo
 2. Write your serverless application (!) - the default is in `handler.php`
 2. Run `sls deploy` to deploy to Lambda
 2. Run `sls invoke -f hello -l` to invoke your function
-2. In this example, static web assets are stored with the project and served by lambdas. See the ['static/README.md'][5] for more info.
+2. In this example, static web assets are stored with the project and served by lambdas. See the [`static/README.md`][5] for more info.
 
 ## ToDos
 
 1. Local testing with SAM needed to reduce test-cycle time
 2. Static assets could all be served with one route if better mime-type logic were added to that route
+2. Local testing with [AWS SAM][8] would really help with the dev cycle
 
 ## PHP handler function signature
 
@@ -41,3 +42,4 @@ Hello world looks like:
 [5]: static/README.md
 [6]: https://getcomposer.org
 [7]: doc/secrets.md
+[8]: https://aws.amazon.com/blogs/aws/new-aws-sam-local-beta-build-and-test-serverless-applications-locally/

@@ -112,6 +112,7 @@ function processOrder() {
     });
     console.log('sending payload', payload);
     window.payload = payload;
+    $('#cart-total').html('<li class="list-group-item"><button class="btn btn-outline-info" type="button">Processing Payment</button></li>');
     $.ajax({
         url: 'order',
         method: 'POST',
