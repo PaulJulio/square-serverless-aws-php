@@ -86,3 +86,50 @@ function inventory($eventData) : array
         ]
     ];
 }
+function sqpayjs($eventData) : array
+{
+    $secrets = new \SquareServerless\SquareSecrets();
+    $appId = $secrets->getClientID();
+    $locations = new \SquareServerless\Locations();
+    // todo: don't use the first locaiton automatically
+    $locationId = $locations->getAsArray()[0]['id'];
+    $src = file_get_contents(__DIR__ . '/static/sqpay.js');
+    $output = strtr($src, ['%sq-app-id%' => $appId, '%sq-location-id%' => $locationId]);
+    return [
+        "body" => $output,
+        "statusCode" => 200,
+        "headers" => [
+            "Content-type" => "application/javascript",
+        ]
+    ];
+}
+function order($eventData) : array
+{
+    $alldata = json_decode($eventData, true);
+    // data['body'] will be set if this is from the browser, but not if invoked directly
+    if (isset($alldata['body'])) {
+        $data = json_decode($alldata['body'], true);
+    } else {
+        $data = $alldata;
+    }
+    $order = new \SquareServerless\Order();
+    $order->build($data);
+    $response = $order->submit();
+    $order = $response->getOrder();
+    $charge = new \SquareServerless\Charge();
+    $chargeResponse = $charge->chargeOrder($order, $data['nonce']);
+    //$transaction = $chargeResponse->getTransaction();
+    // todo: sort out the actual status from the chargeresponse
+    $status = 'SUCCESS';
+    return [
+        "body" => [
+            //'id' => $transaction->getId(),
+            'id' => 'some-fake-testing-id',
+            'status' => $status,
+        ],
+        "statusCode" => 200,
+        "headers" => [
+            "Content-type" => "application/javascript",
+        ],
+    ];
+}

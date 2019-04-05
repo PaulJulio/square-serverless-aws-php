@@ -39,7 +39,7 @@ class SquareCheckout {
               ]
           ]
         );
-        // todo: do not hard-code the location_id
+        // todo: do not use the first location_id automatically
         $response = $checkout_api->createCheckout($this->locid, $request_body);
         return $response->getCheckout()->getCheckoutPageUrl();
     }

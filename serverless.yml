@@ -103,6 +103,14 @@ functions:
       - http:
           path: processcheckout
           method: post
+  order:
+    handler: handler.order
+    layers:
+      - {Ref: PhpLambdaLayer}
+    events:
+      - http:
+          path: order
+          method: post
   inventory:
     handler: handler.inventory
     layers:
@@ -110,6 +118,14 @@ functions:
     events:
       - http:
           path: inventory
+          method: get
+  sqpayjs:
+    handler: handler.sqpayjs
+    layers:
+      - {Ref: PhpLambdaLayer}
+    events:
+      - http:
+          path: sqpay.js
           method: get
 
 #    The following are a few example events you can configure

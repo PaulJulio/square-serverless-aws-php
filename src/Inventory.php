@@ -22,6 +22,16 @@ class Inventory {
 
     public function fetchKiosk() : array
     {
+        // need a separate fetch to get image urls
+        // todo: cache these or find some way to not need to get the entire image collection
+        $objects = $this->fetch('IMAGE');
+        $imageUrls = [];
+        /* @var \SquareConnect\Model\CatalogObject $object */
+        /* @var \SquareConnect\Model\CatalogImage $item */
+        foreach ($objects as $object) {
+            $item = $object->getImageData();
+            $imageUrls[$object->getId()] = $item->getUrl();
+        }
         // todo: filter for the Kiosk category
         $results = [];
         $objects = $this->fetch('ITEM');
@@ -30,19 +40,18 @@ class Inventory {
         foreach ($objects as $object) {
             $item = $object->getItemData();
             $data = [];
-            // question: why doesn't an item have an item_id field, but it is repeated in the variations?
             $data['id'] = $object->getId();
             $data['name'] = $item->getName();
             $data['description'] = $item->getDescription();
             $data['category_id'] = $item->getCategoryId();
-            $data['image_url'] = $item->getImageUrl();
+            $data['image_url'] = $imageUrls[$object->getImageId()];
             $data['variations'] = [];
             $variationObjects = $item->getVariations();
             /* @var \SquareConnect\Model\CatalogItemVariation $variation */
             foreach ($variationObjects as $variationObject) {
                 $variation = $variationObject->getItemVariationData();
                 $itemVariation = [];
-                $itemVariation['item_id'] = $variation->getItemId();
+                $itemVariation['item_id'] = $variationObject->getId();
                 $itemVariation['name'] = $variation->getName();
                 $itemVariation['sku'] = $variation->getSku();
                 $itemVariation['price'] = $variation->getPriceMoney()->getAmount() / 100;

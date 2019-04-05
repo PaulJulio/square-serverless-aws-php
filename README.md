@@ -14,6 +14,11 @@ The basics of using [Serverless Framework][1] for AWS Lambda PHP applications fo
 2. Run `sls invoke -f hello -l` to invoke your function
 2. In this example, static web assets are stored with the project and served by lambdas. See the ['static/README.md'][5] for more info.
 
+## ToDos
+
+1. Local testing with SAM needed to reduce test-cycle time
+2. Static assets could all be served with one route if better mime-type logic were added to that route
+
 ## PHP handler function signature
 
 The signature for the PHP function is:

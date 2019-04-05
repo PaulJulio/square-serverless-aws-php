@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4331d7e048c83590af45e1949923fcdd",
+    "content-hash": "d8a59d17ef8070f516f52aa316bfaca9",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.91.0",
+            "version": "3.91.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "b33f6ed79c207f5dfd38f187337a31e4c7619699"
+                "reference": "c23d22700ae6453a5c7dc7a10e613fd90d6bd322"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/b33f6ed79c207f5dfd38f187337a31e4c7619699",
-                "reference": "b33f6ed79c207f5dfd38f187337a31e4c7619699",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c23d22700ae6453a5c7dc7a10e613fd90d6bd322",
+                "reference": "c23d22700ae6453a5c7dc7a10e613fd90d6bd322",
                 "shasum": ""
             },
             "require": {
@@ -86,7 +86,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-04-01T18:20:23+00:00"
+            "time": "2019-04-03T18:34:51+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -418,16 +418,16 @@
         },
         {
             "name": "square/connect",
-            "version": "2.20190327.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/square/connect-php-sdk.git",
-                "reference": "ec865d25eaf3a64015215f8e0ed95dae4593417e"
+                "reference": "cbea6864893c4c2a6baf35c414f532bdf88640f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/square/connect-php-sdk/zipball/ec865d25eaf3a64015215f8e0ed95dae4593417e",
-                "reference": "ec865d25eaf3a64015215f8e0ed95dae4593417e",
+                "url": "https://api.github.com/repos/square/connect-php-sdk/zipball/cbea6864893c4c2a6baf35c414f532bdf88640f9",
+                "reference": "cbea6864893c4c2a6baf35c414f532bdf88640f9",
                 "shasum": ""
             },
             "require": {
@@ -465,15 +465,19 @@
                 "sdk",
                 "swagger"
             ],
-            "time": "2019-03-27T20:56:23+00:00"
+            "time": "2019-03-29T18:44:00+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "square/connect": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "ext-json": "*"
+    },
     "platform-dev": []
 }

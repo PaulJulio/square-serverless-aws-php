@@ -5,9 +5,146 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Square CSS before Bootstrap CSS -->
+    <style>
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body, html {
+            color: #373F4A;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: normal;
+        }
+
+        iframe {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+        button {
+            border: 0;
+        }
+
+        hr {
+            height: 1px;
+            border: 0;
+            background-color: #CCC;
+        }
+
+        fieldset {
+            margin: 0;
+            padding: 0;
+            border: 0;
+        }
+
+
+        #form-container {
+            position: relative;
+            width: 380px;
+            margin: 0 auto;
+            top: 50%;
+        }
+
+        .label {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 24px;
+            letter-spacing: 0.5;
+            text-transform: uppercase;
+        }
+
+        .third {
+            float: left;
+            width: calc((100% - 32px) / 3);
+            padding: 0;
+            margin: 0 16px 16px 0;
+        }
+
+        .third:last-of-type {
+            margin-right: 0;
+        }
+
+        /* Define how SqPaymentForm iframes should look */
+        .sq-input {
+            box-sizing: border-box;
+            border: 1px solid #E0E2E3;
+            border-radius: 4px;
+            outline-offset: -2px;
+            display: inline-block;
+            -webkit-transition: border-color .2s ease-in-out, background .2s ease-in-out;
+            -moz-transition: border-color .2s ease-in-out, background .2s ease-in-out;
+            -ms-transition: border-color .2s ease-in-out, background .2s ease-in-out;
+            transition: border-color .2s ease-in-out, background .2s ease-in-out;
+        }
+
+        /* Define how SqPaymentForm iframes should look when they have focus */
+        .sq-input--focus {
+            border: 1px solid #4A90E2;
+            background-color: rgba(74,144,226,0.02);
+        }
+
+
+        /* Define how SqPaymentForm iframes should look when they contain invalid values */
+        .sq-input--error {
+            border: 1px solid #E02F2F;
+            background-color: rgba(244,47,47,0.02);
+        }
+
+        #sq-card-number {
+            margin-bottom: 16px;
+        }
+
+        /* Customize the "Pay with Credit Card" button */
+        .button-credit-card {
+            width: 100%;
+            height: 56px;
+            margin-top: 10px;
+            background: #4A90E2;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            color: #FFFFFF;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: 700;
+            letter-spacing: 0;
+            text-align: center;
+            -webkit-transition: background .2s ease-in-out;
+            -moz-transition: background .2s ease-in-out;
+            -ms-transition: background .2s ease-in-out;
+            transition: background .2s ease-in-out;
+        }
+
+        .button-credit-card:hover {
+            background-color: #4281CB;
+        }
+
+
+        #error {
+            width: 100%;
+            margin-top: 16px;
+            font-size: 14px;
+            color: red;
+            font-weight: 500;
+            text-align: center;
+            opacity: 0.8;
+        }
+    </style>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        div.card img {
+            height: 200px;
+        }
+    </style>
+
+    <!-- Square js -->
+    <script type="text/javascript" src="https://js.squareup.com/v2/paymentform"></script>
 
     <title>Example Kiosk</title>
 </head>
@@ -34,16 +171,89 @@
     </div>
     <div>
         <h1>Menu</h1>
-        <div id="menuitems">
+        <div class="row" id="menuitems">
             <p>Waiting to initialize...</p>
         </div>
     </div>
+    <div>
+        <h1>Order</h1>
+        <ul class="list-group" id="cart">
+        </ul>
+        <ul class="list-group" id="cart-total">
+            <li class="list-group-item">As you add items to your order, they will appear here.</li>
+        </ul>
+    </div>
+    <div id="form-container" style="display: none">
+        <div id="sq-ccbox">
+            <!--
+              Be sure to replace the action attribute of the form with the path of
+              the Transaction API charge endpoint URL you want to POST the nonce to
+              (for example, "/process-card")
+            -->
+            <form id="nonce-form" novalidate action="#getpaid">
+                <fieldset>
+                    <span class="label">Card Number</span>
+                    <div id="sq-card-number"></div>
+
+                    <div class="third">
+                        <span class="label">Expiration</span>
+                        <div id="sq-expiration-date"></div>
+                    </div>
+
+                    <div class="third">
+                        <span class="label">CVV</span>
+                        <div id="sq-cvv"></div>
+                    </div>
+
+                    <div class="third">
+                        <span class="label">Postal</span>
+                        <div id="sq-postal-code"></div>
+                    </div>
+                </fieldset>
+
+                <button id="sq-creditcard" class="button-credit-card" onclick="requestCardNonce(event)">Pay Now</button>
+
+                <div id="error"></div>
+
+                <!--
+                  After a nonce is generated it will be assigned to this hidden input field.
+                -->
+                <input type="hidden" id="card-nonce" name="nonce">
+            </form>
+        </div> <!-- end #sq-ccbox -->
+    </div> <!-- end #form-container -->
 </main>
-<!-- Optional JavaScript -->
+<!-- templates for dynamically-rendered elements -->
+<script type="text/template" id="tpl-menu-item">
+    <div class="col-sm-4">
+        <div class="card" style="width: 18rem;">
+            <img src="<%-image_url%>" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title"><%-name%></h5>
+                <p class="card-text"><%-description%></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <%=pricing%>
+            </ul>
+        </div>
+    </div>
+</script>
+<script type="text/template" id="tpl-menu-item-pricing">
+    <button type="button" class="btn btn-outline-primary add-item-to-cart"
+            data-item-id="<%-item_id%>"
+            data-item-sku="<%-sku%>"
+            data-item-name="<%-name%>"
+            data-item-price="<%-price%>">
+        <%-name%> <span class="badge badge-success">$<%-price%></span>
+    </button></li>
+</script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
 <script src="js/kiosk.js"></script>
+<script src="sqpay.js"></script>
 </body>
 </html>
