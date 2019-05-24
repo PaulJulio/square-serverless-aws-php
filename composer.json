@@ -1,8 +1,8 @@
 {
     "require": {
         "aws/aws-sdk-php": "^3.91",
-        "square/connect": "dev-master",
-        "ext-json": "*"
+        "ext-json": "*",
+        "square/connect": "^2.20190508"
     },
 	"autoload": {
 		"psr-4": { "SquareServerless\\": "src/" }

@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d8a59d17ef8070f516f52aa316bfaca9",
+    "content-hash": "43d2e71e18e6249fde4dd531b8e07595",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.91.2",
+            "version": "3.95.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c23d22700ae6453a5c7dc7a10e613fd90d6bd322"
+                "reference": "ae8bb13c2f53d0f6779bafde8a10e4b857263ad7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c23d22700ae6453a5c7dc7a10e613fd90d6bd322",
-                "reference": "c23d22700ae6453a5c7dc7a10e613fd90d6bd322",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ae8bb13c2f53d0f6779bafde8a10e4b857263ad7",
+                "reference": "ae8bb13c2f53d0f6779bafde8a10e4b857263ad7",
                 "shasum": ""
             },
             "require": {
@@ -41,7 +41,8 @@
                 "ext-sockets": "*",
                 "nette/neon": "^2.3",
                 "phpunit/phpunit": "^4.8.35|^5.4.3",
-                "psr/cache": "^1.0"
+                "psr/cache": "^1.0",
+                "psr/simple-cache": "^1.0"
             },
             "suggest": {
                 "aws/aws-php-sns-message-validator": "To validate incoming SNS notifications",
@@ -86,7 +87,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-04-03T18:34:51+00:00"
+            "time": "2019-05-24T18:17:19+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -418,16 +419,16 @@
         },
         {
             "name": "square/connect",
-            "version": "dev-master",
+            "version": "2.20190508.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/square/connect-php-sdk.git",
-                "reference": "cbea6864893c4c2a6baf35c414f532bdf88640f9"
+                "reference": "da592185d59b8ed80a02d5b2eba812e49eed793e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/square/connect-php-sdk/zipball/cbea6864893c4c2a6baf35c414f532bdf88640f9",
-                "reference": "cbea6864893c4c2a6baf35c414f532bdf88640f9",
+                "url": "https://api.github.com/repos/square/connect-php-sdk/zipball/da592185d59b8ed80a02d5b2eba812e49eed793e",
+                "reference": "da592185d59b8ed80a02d5b2eba812e49eed793e",
                 "shasum": ""
             },
             "require": {
@@ -465,15 +466,13 @@
                 "sdk",
                 "swagger"
             ],
-            "time": "2019-03-29T18:44:00+00:00"
+            "time": "2019-05-08T21:21:07+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "square/connect": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
