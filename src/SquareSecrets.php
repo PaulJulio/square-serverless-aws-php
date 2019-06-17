@@ -1,14 +1,13 @@
 <?php
 namespace SquareServerless;
 
-use Aws\Credentials\Credentials;
-use Aws\Exception\AwsException;
 use Aws\SecretsManager\SecretsManagerClient;
 
 class SquareSecrets {
 
 	private $clientId;
 	private $clientSecret;
+	private $oauthSecret;
 
 	public function __construct()
 	{
@@ -26,19 +25,40 @@ class SquareSecrets {
 			$secret = base64_decode($result['SecretBinary']);
 		}
 		$squareSecret = json_decode($secret, true);
-		$this->clientId = $squareSecret['client-id'];
-		$this->clientSecret = $squareSecret['client-secret'];
+		if (isset($squareSecret['client-id'])) {
+            $this->clientId = $squareSecret['client-id'];
+        }
+		if (isset($squareSecret['client-secret'])){
+            $this->clientSecret = $squareSecret['client-secret'];
+        }
+		if (isset($squareSecret['oauth-secret'])){
+            $this->oauthSecret = $squareSecret['oauth-secret'];
+        }
 	}
 
+    /**
+     * @return string
+     */
 	public function getClientID() : string
 	{
 		return $this->clientId;
 	}
 
+    /**
+     * @return string
+     */
 	public function getClientSecret() : string
 	{
 		return $this->clientSecret;
 	}
+
+    /**
+     * @return string
+     */
+    public function getOauthSecret() : string
+    {
+        return $this->oauthSecret;
+    }
 
     /**
      * @param string $configuration
