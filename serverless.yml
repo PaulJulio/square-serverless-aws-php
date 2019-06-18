@@ -27,8 +27,15 @@ provider:
     - Effect: "Allow"
       Action:
       - "secretsmanager:GetSecretValue"
-      Resource: "arn:aws:secretsmanager:us-west-1:054906392800:secret:square_serverless_php-fNpUXF"
-      # todo: that ^^ doesn't belong in source control and is also not stage-aware, need to update
+      Resource:
+        - 'Fn::Join':
+          - ':'
+          -
+            - 'arn:aws:secretsmanager'
+            - Ref: 'AWS::Region'
+            - Ref: 'AWS::AccountId'
+            - 'secret:square_serverless_php-fNpUXF'
+            # todo ^^ what's up with the suffix?
 
 #  stage: dev
 
