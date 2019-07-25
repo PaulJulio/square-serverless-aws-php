@@ -132,7 +132,7 @@ functions:
       - {Ref: PhpLambdaLayer}
     events:
       - http:
-          path: sqpay.js
+          path: sqpay/
           method: get
 
 #    The following are a few example events you can configure
