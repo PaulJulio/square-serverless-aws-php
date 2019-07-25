@@ -114,7 +114,7 @@ function processOrder() {
     window.payload = payload;
     $('#cart-total').html('<li class="list-group-item"><button class="btn btn-outline-info" type="button">Processing Payment</button></li>');
     $.ajax({
-        url: 'order',
+        url: 'order/',
         method: 'POST',
         data: JSON.stringify(payload),
         contentType: 'application/json',

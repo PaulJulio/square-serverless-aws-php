@@ -116,7 +116,7 @@ functions:
       - {Ref: PhpLambdaLayer}
     events:
       - http:
-          path: order
+          path: order/
           method: post
   inventory:
     handler: handler.inventory
