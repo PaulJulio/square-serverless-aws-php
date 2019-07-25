@@ -10,7 +10,7 @@ $body = [
 try {
     $amount = floatval($data['amount']);
     if ($amount < 1) {
-        throw new \Exception('Amount must be numeric and greater than 1');
+        throw new \Exception('Amount must be numeric and greater than 1 ' . json_encode($data));
     }
     $checkout->setAmount($amount);
     $body['url'] = $checkout->charge();
