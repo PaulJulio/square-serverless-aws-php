@@ -108,7 +108,7 @@ functions:
       - {Ref: PhpLambdaLayer}
     events:
       - http:
-          path: processcheckout
+          path: processcheckout/
           method: post
   order:
     handler: handler.order
