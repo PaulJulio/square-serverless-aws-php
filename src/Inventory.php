@@ -1,5 +1,6 @@
 <?php
 namespace SquareServerless;
+use SquareConnect\ApiClient;
 
 class Inventory {
 
@@ -9,7 +10,9 @@ class Inventory {
 
         $sqSecret = new SquareSecrets();
         $sqSecret->setAccessToken();
-        $catalog_api = new \SquareConnect\Api\CatalogApi();
+        $apiClient = new ApiClient();
+        $apiClient->getConfig()->setHost('https://connect.squareupsandbox.com');
+        $catalog_api = new \SquareConnect\Api\CatalogApi($apiClient);
         $response = $catalog_api->listCatalog(null, $types);
         // todo: check for response->getCursor() and implement paging
         $objects = $response->getObjects();

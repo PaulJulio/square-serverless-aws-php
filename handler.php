@@ -4,17 +4,29 @@ date_default_timezone_set('UTC');
 
 function listLocations($eventData) : array
 {
-	$locations = new \SquareServerless\Locations();
-	return [
-		"body" => json_encode([
-			'locations' => $locations->getAsArray(),
-			'error' => $locations->getError(),
-		]),
-		"statusCode" => 200,
-        "headers" => [
-            "Content-type" => "application/json",
-        ],
-	];
+    try {
+        $locations = new \SquareServerless\Locations();
+        return [
+            "body" => json_encode([
+                'locations' => $locations->getAsArray(),
+                'error' => $locations->getError(),
+            ]),
+            "statusCode" => 200,
+            "headers" => [
+                "Content-type" => "application/json",
+            ],
+        ];
+    } catch (\Exception $e) {
+        return [
+            "body" => $e->getMessage(),
+            "statusCode" => 500,
+        ];
+    } catch (\Throwable $e) {
+        return [
+            "body" => $e->getMessage(),
+            "statusCode" => 500,
+        ];
+    }
 }
 function staticCheckout($eventData) : array
 {

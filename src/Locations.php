@@ -1,5 +1,7 @@
 <?php
 namespace SquareServerless;
+use SquareConnect\ApiClient;
+use SquareConnect\ApiException;
 
 class Locations {
 
@@ -16,7 +18,17 @@ class Locations {
 		$sqSecret = new SquareSecrets();
 		$sqSecret->setAccessToken();
 		$locations_api = new \SquareConnect\Api\LocationsApi();
-		$response = $locations_api->listLocations();
+		$locations_api->getApiClient()->getConfig()->setHost('https://connect.squareupsandbox.com');
+		try {
+            $response = $locations_api->listLocations();
+        } catch (ApiException $e) {
+		    $this->error = $e->getMessage();
+        } catch (\Exception $e) {
+            $this->error = $e->getMessage();
+        } catch (\Throwable $e) {
+            $this->error = $e->getMessage();
+        }
+        return;
 		$this->error = $response->getErrors();
 		$this->locations = [];
 		foreach($response->getLocations() as $location) {

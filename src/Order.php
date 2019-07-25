@@ -4,6 +4,7 @@ namespace SquareServerless;
 use SquareConnect\Model\OrderFulfillment;
 use SquareConnect\Model\OrderFulfillmentPickupDetails;
 use SquareConnect\Model\OrderFulfillmentRecipient;
+use SquareConnect\ApiClient;
 
 class Order {
 
@@ -13,7 +14,9 @@ class Order {
 
     public function __construct()
     {
-        $this->api = new \SquareConnect\Api\OrdersApi();
+        $apiClient = new ApiClient();
+        $apiClient->getConfig()->setHost('https://connect.squareupsandbox.com');
+        $this->api = new \SquareConnect\Api\OrdersApi($apiClient);
         $this->order = new \SquareConnect\Model\Order();
         $this->orderRequest = new \SquareConnect\Model\CreateOrderRequest();
         $sqSecrets = new SquareSecrets();

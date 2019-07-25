@@ -3,6 +3,7 @@ namespace SquareServerless;
 
 use SquareConnect\Model\ChargeRequest;
 use SquareConnect\Model\ChargeResponse;
+use SquareConnect\ApiClient;
 
 class Charge {
 
@@ -11,7 +12,9 @@ class Charge {
 
     public function __construct()
     {
-        $this->api = new \SquareConnect\Api\TransactionsApi();
+        $apiClient = new ApiClient();
+        $apiClient->getConfig()->setHost('https://connect.squareupsandbox.com');
+        $this->api = new \SquareConnect\Api\TransactionsApi($apiClient);
         $loc = new Locations();
         $loc->fetch();
         // todo: do not use first location automatically

@@ -1,5 +1,6 @@
 <?php
 namespace SquareServerless;
+use SquareConnect\ApiClient;
 
 class SquareCheckout {
 
@@ -21,7 +22,9 @@ class SquareCheckout {
         }
         $sqSecret = new SquareSecrets();
         $sqSecret->setAccessToken();
-        $checkout_api = new \SquareConnect\Api\CheckoutApi();
+        $apiClient = new ApiClient();
+        $apiClient->getConfig()->setHost('https://connect.squareupsandbox.com');
+        $checkout_api = new \SquareConnect\Api\CheckoutApi($apiClient);
         $request_body = new \SquareConnect\Model\CreateCheckoutRequest(
           [
               "idempotency_key" => $this->uuid,
