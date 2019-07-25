@@ -7,4 +7,5 @@ $locations = new \SquareServerless\Locations();
 $locationId = $locations->getAsArray()[0]['id'];
 $src = file_get_contents(__DIR__ . '/../sqpay.js');
 $output = strtr($src, ['%sq-app-id%' => $appId, '%sq-location-id%' => $locationId]);
-echo json_encode($output);
+header("Content-type: application/javascript");
+echo $output;
