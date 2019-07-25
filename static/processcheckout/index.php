@@ -8,12 +8,14 @@ $body = [
     'error' => '',
 ];
 try {
-    if (!is_numeric($data['amount'])) {
-        throw new \Exception('Amount must be numeric');
+    $amount = floatval($data['amount']);
+    if ($amount < 1) {
+        throw new \Exception('Amount must be numeric and greater than 1');
     }
-    $checkout->setAmount($data['amount']);
+    $checkout->setAmount($amount);
     $body['url'] = $checkout->charge();
 } catch (Exception $e) {
     $body['error'] = $e->getMessage();
 }
+header('Content-type: application/json');
 echo json_encode($body);
