@@ -550,7 +550,7 @@
 			success: function(data)
 			{
 				console.log(data);
-				if (data.url !== '') {
+				if (data.url.length > 0) {
 					$('#status').html('Opening a new window so that you can securely enter your payment information. If it doesn\'t open, you may click <a href="' + data.url + '">here</a>');
 					window.open(data.url);
 				} else {
