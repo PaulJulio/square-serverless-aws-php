@@ -28,7 +28,6 @@ class Locations {
         } catch (\Throwable $e) {
             $this->error = $e->getMessage();
         }
-        return;
 		$this->error = $response->getErrors();
 		$this->locations = [];
 		foreach($response->getLocations() as $location) {
