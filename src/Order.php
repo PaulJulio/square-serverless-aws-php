@@ -68,10 +68,10 @@ class Order {
         $recipient->setDisplayName('Kiosk Customer');
         $pickup = new OrderFulfillmentPickupDetails();
         $pickup->setRecipient($recipient);
-        $pickup->setExpiresAt(date('Y-m-d\TH:i:s\Z', $now + 3600));
+        $pickup->setExpiresAt(date('Y-m-d\TH:i:s\Z', $now + 36000));
         $pickup->setAutoCompleteDuration('P0DT1H0S');
         $pickup->setScheduleType('SCHEDULED');
-        $pickup->setPickupAt(date('Y-m-d\TH:i:s\Z', $now + 600));
+        $pickup->setPickupAt(date('Y-m-d\TH:i:s\Z', $now + 3000));
         $pickup->setPickupWindowDuration('PT1H0S');
         $pickup->setPrepTimeDuration('PT10M');
         $fullfillment->setPickupDetails($pickup);
