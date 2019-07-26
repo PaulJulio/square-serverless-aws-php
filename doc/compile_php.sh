@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # FROM https://aws.amazon.com/blogs/apn/aws-lambda-custom-runtime-for-php-a-practical-example/
+# modified now that openssl on Amazon Linux and Lambda is compatible
 
 PHP_VERSION=$1
 if [ -z "$PHP_VERSION" ]; then
