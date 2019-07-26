@@ -1,8 +1,8 @@
 <?php
-require_once realpath(__DIR__ . '/vendor/autoload.php');
+require_once __DIR__ . '/vendor/autoload.php';
 date_default_timezone_set('UTC');
 
-function listLocations($eventData) : array
+function listLocations($eventData = '') : array
 {
     try {
         $locations = new \SquareServerless\Locations();
@@ -28,7 +28,7 @@ function listLocations($eventData) : array
         ];
     }
 }
-function staticCheckout($eventData) : array
+function staticCheckout($eventData = '') : array
 {
     return [
         "body" => file_get_contents(__DIR__ . "/static/checkout.html"),
@@ -38,7 +38,7 @@ function staticCheckout($eventData) : array
         ],
     ];
 }
-function staticKiosk($eventData) : array
+function staticKiosk($eventData = '') : array
 {
     return [
         "body" => file_get_contents(__DIR__ . "/static/kiosk.html"),
@@ -48,7 +48,7 @@ function staticKiosk($eventData) : array
         ],
     ];
 }
-function staticJs($eventData) : array
+function staticJs($eventData = '') : array
 {
     // todo: check that asset exists
     $data = json_decode($eventData, true);
