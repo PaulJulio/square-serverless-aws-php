@@ -24,14 +24,12 @@ class CatalogSeed
     {
         $response = $this->api->listCatalog();
         $objects = $response->getObjects();
-        $ids = [];
         foreach ($objects as $object) {
             $this->api->deleteCatalogObject($object->getId());
         }
     }
     public function seed() : array
     {
-        $this->api->
         $batch = new CatalogObjectBatch(["objects" => $this->getSeedObjects()]);
         $request = new BatchUpsertCatalogObjectsRequest(['idempotency_key' => uniqid(), 'batches'=>[$batch]]);
         $response = $this->api->batchUpsertCatalogObjects($request);
