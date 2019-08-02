@@ -145,3 +145,39 @@ function order($eventData) : array
         ],
     ];
 }
+
+function emptyCatalog($eventData) : array
+{
+    $data = json_decode($eventData, true);
+    try {
+        $cs = new \SquareServerless\CatalogSeed();
+        $cs->empty();
+        $body = "done";
+    } catch (\Exception $e) {
+        $body = $e->getMessage();
+    } catch (\Throwable $e) {
+        $body = $e->getMessage();
+    }
+    return [
+        "body" => $body,
+        "statusCode" => 200,
+    ];
+}
+
+function seed($eventData) : array
+{
+    $data = json_decode($eventData, true);
+    try {
+        $cs = new \SquareServerless\CatalogSeed();
+        $results = $cs->seed();
+        $body = json_encode($results, JSON_PRETTY_PRINT);
+    } catch (\Exception $e) {
+        $body = $e->getMessage();
+    } catch (\Throwable $e) {
+        $body = $e->getMessage();
+    }
+    return [
+        "body" => $body,
+        "statusCode" => 200,
+    ];
+}

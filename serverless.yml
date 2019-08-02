@@ -126,6 +126,16 @@ functions:
       - http:
           path: inventory
           method: get
+  emptyCatalog:
+    handler: handler.emptyCatalog
+    layers:
+      - {Ref: PhpLambdaLayer}
+    # no events for this as it's meant to be called via CLI
+  seed:
+    handler: handler.seed
+    layers:
+      - {Ref: PhpLambdaLayer}
+    # no events for this as it's meant to be called via CLI
   sqpayjs:
     handler: handler.sqpayjs
     layers:
